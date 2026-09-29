@@ -1,0 +1,44 @@
+You are working on "Abdullah Motors", a car dealership web app. Stack: TanStack Start + TanStack Router (file-based routes in src/routes), React 19, TypeScript, Tailwind v4, shadcn/ui, TanStack Query, and Supabase (DB, auth, storage). The project was originally generated with Lovable.
+
+YOUR JOB
+Analyse the whole codebase first, then find everything that is incomplete, mocked, fake, broken or inconsistent, and finish it properly. Don't just list problems: fix them. Work in this order and tell me briefly what you did at the end.
+
+STEP 0 - SETUP
+- Install dependencies and make the app run in Replit (dev server must bind to 0.0.0.0 and use the port Replit expects; adjust vite.config.ts if needed).
+- Read VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY from Replit Secrets. Do not hardcode keys. Remove the committed .env from the project and make sure it is in .gitignore (keep .env.example).
+- Run `npm run build` and `npm run lint` and fix all TypeScript, ESLint and build errors.
+- Read supabase/schema.sql and src/lib/database.types.ts and make sure the types match the schema exactly.
+
+STEP 1 - KNOWN INCOMPLETE ITEMS (fix all of these)
+1. src/routes/financing.tsx: the "Get pre-approved" form is fake (it only shows a success state for 4 seconds and saves nothing). Make it real: validate with react-hook-form + zod, save to Supabase (add a `finance_applications` table plus RLS in supabase/schema.sql: public insert, staff-only read/manage), show proper loading, success and error states, and add an admin page to view and update these applications. Make the currency and placeholders consistent with the rest of the site.
+2. Mock or fallback data still in production code: src/routes/cars.$id.tsx (MOCK_CAR), src/routes/cars.tsx (fallback brands and the mock inventory types), src/routes/index.tsx (static fallback data), src/routes/testimonials.tsx (FALLBACK_REVIEWS), src/routes/compare.tsx (fallback cars). Every public page must use real Supabase data. Where the DB is empty, show a proper empty state instead of fake cars or fake reviews. Add a supabase/seed.sql with realistic sample brands, models, categories, cars, images, testimonials and blogs so the site can be demoed.
+3. src/routes/contact.tsx: the map shows "Interactive map coming soon". Replace it with a working embedded map (Google Maps iframe or OpenStreetMap/Leaflet, no paid API key required) and use the dealership's real address. Verify the contact form saves to the `enquiries` table and shows success and error toasts.
+4. Branding inconsistency: several files still say "Aurora Motors" or "auroramotors.co" (for example the mailto in cars.$id.tsx, the footer, navbar, intro-loader, faq, about, blog, compare, financing and __root SEO meta). Replace everything with "Abdullah Motors" and move the business name, email, phone, address and social links into ONE config file (src/lib/site-config.ts) that every page imports.
+5. Check that cars.views_count is actually incremented when a car detail page is viewed (use a safe RPC or function in the schema, not a client-side race), and that `is_featured` drives the homepage featured section.
+6. Check the RLS policy "Anyone can read available cars": it currently uses `using (true)`. Decide whether sold and reserved cars should show publicly and make the policy and UI agree. Also make sure the public cannot read enquiries, bookings or subscribers, only insert.
+
+STEP 2 - AUDIT EVERYTHING ELSE
+Go through every route and every admin page (admin.index, admin.cars, admin.cars.new, admin.cars.$carId.edit, admin.bookings, admin.enquiries, admin.testimonials, admin.blogs, admin.login) and verify each of these works end to end against Supabase:
+- Full CRUD for cars, including multi-image upload to the `car-images` bucket, reordering, and setting a primary image.
+- Status changes for bookings and enquiries, with filters, search and pagination.
+- Testimonial approve and reject, and blog draft/publish with `blog-images` upload.
+- Admin route protection: only users whose profile role is 'admin' or 'staff' can access /admin/*. Redirect everyone else to /admin/login. Handle expired sessions and logout properly.
+- The dashboard stats on admin.index show real counts, not hardcoded numbers.
+- Public features: car listing filters (brand, category, price, year, fuel, transmission), sorting, URL search params, the compare page (max 3 or 4 cars, shareable ids in the URL), the test-drive booking form (no past dates, phone validation), the enquiry form, the testimonial submission form (goes to moderation), blog list and blog detail by slug, and the newsletter subscription in the footer.
+- Every form: validation, disabled submit button while loading, error handling, and toasts.
+- Add loading skeletons, error boundaries and 404 pages for every data-driven route (including a car or blog that does not exist).
+- Fix any dead links, missing pages, unused files and unused imports.
+
+STEP 3 - QUALITY
+- SEO: a proper <title>, meta description and Open Graph tags per route (car detail and blog detail should use their own data).
+- Responsive on mobile, tablet and desktop. The custom cursor, tilt and magnetic effects must be disabled on touch devices, and the site should respect prefers-reduced-motion.
+- Accessibility basics: alt text, labels, focus states, keyboard navigation.
+- Performance: lazy-load images, compress or lazy-load the background videos, and no console errors or warnings.
+- Write a clear README: setup, required env vars, how to run schema.sql and seed.sql in Supabase, how to create the first admin user (SQL to set role = 'admin'), and how to deploy.
+
+RULES
+- Do not change the visual design language (dark, premium look, animations); only complete and fix things.
+- Keep the existing stack and folder structure. Do not rewrite working parts.
+- Any DB change must go into supabase/schema.sql (idempotent: `if not exists`) with RLS enabled.
+- Do not stop after the first few fixes. Continue until every item above is done, the build passes, and there are no console errors.
+- At the end, give me a checklist: what was incomplete, what you fixed, and anything that needs my manual action (for example running SQL in Supabase or adding secrets).
