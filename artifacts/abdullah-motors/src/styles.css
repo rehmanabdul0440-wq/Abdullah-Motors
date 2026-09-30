@@ -1,0 +1,459 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Abdullah Motors — deep midnight, brushed gold, and petrol blue.
+ * A premium dealership system with quiet confidence and tactile motion.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-from: var(--primary-from);
+  --color-primary-to: var(--primary-to);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-glow: 0 10px 40px -10px oklch(0.72 0.14 82 / 0.22);
+  --shadow-glow-strong: 0 20px 60px -12px oklch(0.72 0.14 82 / 0.32);
+  --shadow-gold: 0 10px 30px -12px oklch(0.78 0.14 85 / 0.38);
+}
+
+:root,
+.dark {
+  --radius: 1rem;
+
+  /* Base surfaces */
+  --background: oklch(0.12 0.018 245); /* deep midnight */
+  --surface: oklch(0.17 0.024 242); /* petrol blue surface */
+  --foreground: oklch(0.96 0.012 85); /* warm ivory */
+
+  --card: oklch(0.17 0.024 242);
+  --card-foreground: oklch(0.96 0.012 85);
+  --popover: oklch(0.17 0.024 242);
+  --popover-foreground: oklch(0.96 0.012 85);
+
+  /* Accents */
+  --primary-from: oklch(0.78 0.14 82); /* brushed gold */
+  --primary-to: oklch(0.66 0.12 58); /* antique gold */
+  --primary: oklch(0.74 0.14 75);
+  --primary-foreground: oklch(0.14 0.02 245);
+
+  --secondary: oklch(0.22 0.03 242);
+  --secondary-foreground: oklch(0.96 0.012 85);
+
+  --muted: oklch(0.22 0.03 242);
+  --muted-foreground: oklch(0.70 0.025 245);
+
+  --accent: oklch(0.27 0.05 215);
+  --accent-foreground: oklch(0.96 0.012 85);
+
+  --gold: oklch(0.78 0.14 85); /* #D4AF37 */
+
+  /* Status */
+  --success: oklch(0.72 0.18 145); /* #22C55E */
+  --warning: oklch(0.78 0.16 70); /* #F59E0B */
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  /* Borders and inputs */
+  --border: oklch(1 0 0 / 0.08);
+  --border-subtle: oklch(1 0 0 / 0.06);
+  --input: oklch(0.20 0.03 242);
+  --ring: oklch(0.74 0.14 75);
+
+  --chart-1: oklch(0.78 0.14 82);
+  --chart-2: oklch(0.52 0.10 215);
+  --chart-3: oklch(0.78 0.14 85);
+  --chart-4: oklch(0.72 0.18 145);
+  --chart-5: oklch(0.78 0.16 70);
+
+  --sidebar: oklch(0.10 0.018 245);
+  --sidebar-foreground: oklch(0.96 0.012 85);
+  --sidebar-primary: oklch(0.74 0.14 75);
+  --sidebar-primary-foreground: oklch(0.14 0.02 245);
+  --sidebar-accent: oklch(0.22 0.03 242);
+  --sidebar-accent-foreground: oklch(0.96 0.012 85);
+  --sidebar-border: oklch(1 0 0 / 0.08);
+  --sidebar-ring: oklch(0.74 0.14 75);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    background-color: var(--color-background);
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: oklch(0.64 0.21 280 / 0.35);
+    color: var(--color-foreground);
+  }
+
+  /* Accessible focus rings — accent color, never suppressed. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ---------- Custom scrollbar (dark theme, accent thumb) ---------- */
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--primary) 45%, transparent) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-from), var(--primary-to));
+    border: 2px solid var(--background);
+    border-radius: 999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--primary-to), var(--primary-from));
+  }
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+/* ---------- Motion primitives ---------- */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes input-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+@keyframes focus-glow-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 40%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--primary) 0%, transparent);
+  }
+}
+
+/* ---------- Ambient background ---------- */
+@keyframes ambient-drift-a {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6vw, 4vh, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+@keyframes ambient-drift-b {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-5vw, -3vh, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+}
+@keyframes ambient-grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 80px 80px;
+  }
+}
+@keyframes divider-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.ambient-blob {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--primary-from) 65%, transparent),
+    transparent 70%
+  );
+}
+.ambient-blob-a {
+  animation: ambient-drift-a 30s ease-in-out infinite;
+}
+.ambient-blob-b {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--primary-to) 60%, transparent),
+    transparent 70%
+  );
+  animation: ambient-drift-b 36s ease-in-out infinite;
+}
+.ambient-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--foreground) 22%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--foreground) 22%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 80px 80px;
+  animation: ambient-grid-drift 60s linear infinite;
+  mask-image: radial-gradient(120% 80% at 50% 40%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(120% 80% at 50% 40%, black 20%, transparent 80%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-blob-a,
+  .ambient-blob-b,
+  .ambient-grid {
+    animation: none !important;
+  }
+}
+
+/* Section divider — thin gradient hairline with slow glow pulse. */
+.glow-divider {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--primary) 55%, transparent) 50%,
+    transparent 100%
+  );
+  box-shadow: 0 0 24px color-mix(in oklab, var(--primary) 35%, transparent);
+  animation: divider-pulse 6s ease-in-out infinite;
+  will-change: opacity;
+}
+@utility page-transition {
+  animation: page-fade-in 0.35s ease-out both;
+}
+
+/* Hide the native cursor when the custom cursor is active on desktop. */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Input validation shake — apply via data-invalid on inputs/forms. */
+[data-invalid="true"] {
+  animation: input-shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+/* Sliding underline for nav links. Apply via .nav-link. */
+@utility nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background-image: linear-gradient(90deg, var(--primary-from), var(--primary-to));
+  box-shadow: 0 0 12px color-mix(in oklab, var(--primary) 60%, transparent);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after,
+.nav-link[data-status="active"]::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* ---------- Type scale ---------- */
+@utility text-display-xl {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 5vw + 1rem, 4.5rem); /* up to 72px */
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+@utility text-display-lg {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 4vw + 0.5rem, 3.5rem); /* up to 56px */
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+@utility text-display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.5rem; /* 40px */
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+@utility text-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.75rem; /* 28px */
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+@utility text-title {
+  font-weight: 600;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.4;
+}
+@utility text-body {
+  font-size: 1rem; /* 16px */
+  line-height: 1.6;
+}
+@utility text-body-sm {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+}
+@utility text-caption {
+  font-size: 0.75rem; /* 12px */
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Surfaces ---------- */
+@utility bg-gradient-primary {
+  background-image: linear-gradient(135deg, var(--primary-from), var(--primary-to));
+}
+@utility text-gradient-primary {
+  background-image: linear-gradient(135deg, var(--primary-from), var(--primary-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility glass-surface {
+  background-color: color-mix(in oklab, var(--surface) 70%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--border);
+}
+@utility glow-ring {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Gradient hairline border via mask trick */
+@utility border-gradient {
+  position: relative;
+}
+@utility border-gradient-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary-from), var(--primary-to));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: opacity 200ms ease;
+}
